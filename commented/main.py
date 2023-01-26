@@ -143,7 +143,7 @@ for i in test_pairs:
 
         # Add the reference sentence to the reference list
         reference.append(i[1].split(' '))
-    except NameError:
+    except:
         pass
 
 score = 0. # Initialize the BLEU score
