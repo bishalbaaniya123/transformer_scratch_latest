@@ -33,7 +33,7 @@ def train_iters(encoder, decoder, n_iters, print_every=1000, plot_every=100, lea
     print_loss_total = 0  # Reset every print_every
     plot_loss_total = 0  # Reset every plot_every
 
-    encoder_optimizer = optim.SGD(encoder.parameters(), lr=learning_rate)
+    encoder_optimizer = optim.SGD(encoder.parameters(), lr=learning_rate)  # SGD is better for dense data
     decoder_optimizer = optim.SGD(decoder.parameters(), lr=learning_rate)
     training_pairs = [tensors_from_pair(random.choice(pairs)) for i in range(n_iters)]
     criterion = nn.NLLLoss()

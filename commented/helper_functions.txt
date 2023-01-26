@@ -1,0 +1,9 @@
+The code imports various modules such as unicodedata, re, math, time, and io to perform various functions throughout the script.
+The unicode_to_ascii(s) function converts a Unicode string to plain ASCII using the unicodedata module. It normalizes the string using the 'NFD' form, then only keeps the characters that are not 'Mn' (mark non-spacing) category.
+The normalize_string(s) function lowercases, trims, and removes non-letter characters from a string using regular expressions.
+The read_langs(lang1, lang2, reverse=False, initialize=False) function reads and normalizes the lines from two text files, corresponding to languages lang1 and lang2. It then creates a list of sentence pairs by zipping the two lists together. If the reverse argument is set to True, it reverses the order of the sentence pairs.
+The pre_process(lang1, lang2, reverse=False) function reads and normalizes the lines from two text files, corresponding to languages lan1 and lan2, then creates a list of sentence pairs by zipping the two lists together. If the reverse argument is set to True, it reverses the order of the sentence pairs and the input and output languages are also reversed.
+The filter_pair(p) function filters the sentence pairs by checking the length of the sentences against the MAX_LENGTH value.
+The filter_pairs(pairs) function filters the list of sentence pairs by calling the filter_pair() function on each pair.
+The prepare_data(lang1, lang2, reverse=False) function calls the read_langs() and pre_process() functions to read and normalize the lines, create a list of sentence pairs, and filter the pairs. It then adds each sentence to the corresponding language's vocabulary by calling the add_sentence() method.
+The indexes_from_sentence(lang, sentence) function converts a sentence to a list of indexes corresponding to the words in the vocabulary of the language lang.

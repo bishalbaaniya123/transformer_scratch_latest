@@ -52,7 +52,7 @@ def read_langs(lang1, lang2, reverse=False, initialize=False):
 def pre_process(lang1, lang2, reverse=False):
     print("Reading lines...")
     lan1 = 'english'
-    lan2 = 'maya'
+    lan2 = 'my'
 
     lines1 = open(path + '/%s.txt' % lan1, encoding='utf-8').read().strip().split('\n')
     lines2 = open(path + '/%s.txt' % lan2, encoding='utf-8').read().strip().split('\n')
