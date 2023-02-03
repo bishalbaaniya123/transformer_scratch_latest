@@ -8,6 +8,7 @@ import matplotlib.ticker as ticker
 from torch import optim
 from torchtext.data.metrics import bleu_score
 from nltk.translate.bleu_score import sentence_bleu
+from nltk.translate.meteor_score import meteor_score
 
 from transformer.transformer import *
 from utils.helper_funcs import *
@@ -121,6 +122,7 @@ encoder1 = EncoderRNN(input_lang.n_words, hidden_size).to(device)
 attn_decoder1 = AttnDecoderRNN(hidden_size, output_lang.n_words, dropout_p=0.15).to(device)
 
 train_iters(encoder1, attn_decoder1, 100000, print_every=5000)
+# train_iters(encoder1, attn_decoder1, 100000, print_every=5000)
 # evaluate_randomly(encoder1, attn_decoder1)
 
 
@@ -135,8 +137,22 @@ for i in test_pairs:
         # output_sentence = ' '.join(output_words)
         candidate.append(output_words)
         reference.append(i[1].split(' '))
-    except NameError:
+    except:
         pass
+
+meteor_score_actual = 0.
+for i in range(len(reference)):
+    # score += sentence_bleu([reference[i]], candidate[i])
+    if len(reference[i]) == 1:
+        meteor_score_actual += meteor_score([reference[i]], candidate[i])
+    elif len(reference[i]) == 2:
+        meteor_score_actual += meteor_score([reference[i]], candidate[i])
+    elif len(reference[i]) == 3:
+        meteor_score_actual += meteor_score([reference[i]], candidate[i])
+    elif len(reference[i]) == 4:
+        meteor_score_actual += meteor_score([reference[i]], candidate[i])
+    else:
+        meteor_score_actual += meteor_score([reference[i]], candidate[i])
 
 score = 0.
 for i in range(len(reference)):
@@ -153,7 +169,9 @@ for i in range(len(reference)):
         score += sentence_bleu([reference[i]], candidate[i])
 
 score /= len(reference)
-print("The bleu score is: " + str(score * 100))
+meteor_score_actual /= len(reference)
+print("The METEOR score is: " + str(meteor_score_actual * 100))
+print("The BLEU score is: " + str(score * 100))
 
 # print(f'BLEU Score: {bleu_score(candidate, reference)}')
 # _, _, test_pairs = prepare_data('eng_test', 'my_test', True)
